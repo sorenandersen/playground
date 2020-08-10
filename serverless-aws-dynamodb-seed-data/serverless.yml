@@ -1,0 +1,33 @@
+service: demo-aws-dynamodb-seed-data
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: us-east-1
+  environment:
+    TABLE_NAME: !Ref SeedDemoTempTable
+
+resources:
+  Resources:
+    SeedDemoTempTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: PK
+            AttributeType: S
+        KeySchema:
+          - AttributeName: PK
+            KeyType: HASH
+
+  Outputs:
+    SeedDemoTempTableName:
+      Value: !Ref SeedDemoTempTable
+      Description: "DynamoDB table"
+
+plugins:
+  - serverless-export-env
+
+custom:
+  serverlessExportEnv: "Needs a 'custom' property to work."
