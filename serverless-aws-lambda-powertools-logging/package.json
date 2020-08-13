@@ -1,0 +1,21 @@
+{
+  "name": "demo-serverless-aws-lambda-powertools-logging",
+  "version": "0.0.1",
+  "description": "Sample project showing how to set up structured logging witn Lamba powertools.",
+  "main": "",
+  "scripts": {
+    "sls": "serverless"
+  },
+  "keywords": [],
+  "author": "",
+  "devDependencies": {
+    "aws-sdk": "^2.732.0",
+    "dotenv": "^8.2.0",
+    "prettier": "^2.0.5",
+    "serverless": "^1.78.1"
+  },
+  "dependencies": {
+    "@dazn/lambda-powertools-logger": "^1.24.1",
+    "@dazn/lambda-powertools-pattern-basic": "^1.27.0"
+  }
+}

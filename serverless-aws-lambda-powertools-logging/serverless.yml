@@ -1,0 +1,31 @@
+service: demo-lambda-powertools-logging
+
+custom:
+  stage: ${opt:stage, self:provider.stage}
+  logLevel:
+    prod: WARN
+    default: INFO
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  memorySize: 128
+  httpApi:
+    payload: "2.0"
+  environment:
+    LOG_LEVEL: ${self:custom.logLevel.${self:custom.stage}, self:custom.logLevel.default}
+    SAMPLE_DEBUG_LOG_RATE: 0.2 # For the purpose of testing we sample 20%. Default setting is 1% (0.01)
+
+functions:
+  testSuccess:
+    handler: functions/test-success.handler
+    events:
+      - httpApi:
+          path: /success
+          method: get
+  testError:
+    handler: functions/test-error.handler
+    events:
+      - httpApi:
+          path: /error
+          method: get
