@@ -1,0 +1,29 @@
+service: demo-lambda-middy-ssm-param
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  memorySize: 128
+  httpApi:
+    payload: "2.0"
+  environment:
+    serviceName: ${self:service}
+    stage: ${self:provider.stage}
+
+functions:
+  index:
+    handler: functions/index.handler
+    events:
+      - httpApi:
+          path: /
+          method: get
+    environment:
+      deploy_time_value: "Changeable only by redeploying."
+    iamRoleStatements:
+      - Effect: Allow
+        Action: ssm:GetParameters*
+        Resource: arn:aws:ssm:#{AWS::Region}:#{AWS::AccountId}:parameter/${self:service}/${self:provider.stage}/index/config
+
+plugins:
+  - serverless-iam-roles-per-function
+  - serverless-pseudo-parameters

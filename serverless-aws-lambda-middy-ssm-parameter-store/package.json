@@ -1,0 +1,21 @@
+{
+  "name": "demo-serverless-aws-lambda-middy-ssm",
+  "version": "0.0.1",
+  "description": "Sample project showing how to use SSM Parameter Store for dynamic configuration.",
+  "main": "",
+  "scripts": {
+    "sls": "serverless"
+  },
+  "keywords": [],
+  "author": "",
+  "devDependencies": {
+    "aws-sdk": "^2.734.0",
+    "prettier": "^2.0.5",
+    "serverless": "^1.78.1",
+    "serverless-iam-roles-per-function": "^2.0.2",
+    "serverless-pseudo-parameters": "^2.5.0"
+  },
+  "dependencies": {
+    "middy": "^0.36.0"
+  }
+}
