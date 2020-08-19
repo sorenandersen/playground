@@ -1,0 +1,21 @@
+{
+  "name": "demo-serverless-aws-dynamodb-stream-lambda-simple",
+  "version": "0.0.1",
+  "description": "Sample project for experimenting with DynamoDB streams.",
+  "main": "",
+  "scripts": {
+    "sls": "serverless"
+  },
+  "keywords": [],
+  "author": "",
+  "devDependencies": {
+    "aws-sdk": "^2.735.0",
+    "prettier": "^2.0.5",
+    "serverless": "^1.78.1",
+    "serverless-iam-roles-per-function": "^2.0.2"
+  },
+  "dependencies": {
+    "@dazn/lambda-powertools-logger": "^1.24.1",
+    "uuid": "^8.3.0"
+  }
+}
