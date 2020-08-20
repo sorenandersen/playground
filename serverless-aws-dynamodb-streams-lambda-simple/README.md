@@ -15,7 +15,7 @@ await dynamodb
         Key: { playerId },
         ConditionExpression: 'attribute_exists(playerId)',
         UpdateExpression:
-            'ADD gamesPlayed :increment, totalScore :score SET lastPlayedDate = :date',
+            'SET gamesPlayed = gamesPlayed + :increment, totalScore = totalScore + :score, lastPlayedDate = :date',
         ExpressionAttributeValues: {
             ':increment': 1,
             ':score': score,
