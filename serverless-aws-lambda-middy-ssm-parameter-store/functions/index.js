@@ -1,5 +1,5 @@
-const middy = require('middy')
-const { ssm } = require('middy/middlewares')
+const middy = require('@middy/core')
+const ssm = require('@middy/ssm')
 const { serviceName, stage, deploy_time_value } = process.env
 
 module.exports.handler = middy(async () => {
