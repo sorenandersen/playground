@@ -19,7 +19,6 @@ functions:
           method: post
     environment:
       EVENT_BUS_NAME: !Ref CustomBus
-      EVENT_BUS_SOURCE: ${self:custom.eventBus.source}
     iamRoleStatements:
       - Effect: Allow
         Action: events:PutEvents
@@ -31,7 +30,7 @@ functions:
           eventBus: ${self:custom.eventBus.arn}
           pattern:
             source:
-              - ${self:custom.eventBus.source}
+              - demo.eventbridge.text-endpoint
             detail-type:
               - translate
     iamRoleStatements:
@@ -47,7 +46,7 @@ functions:
           eventBus: ${self:custom.eventBus.arn}
           pattern:
             source:
-              - ${self:custom.eventBus.source}
+              - demo.eventbridge.text-endpoint
             detail-type:
               - sentiment
     iamRoleStatements:
@@ -58,8 +57,7 @@ functions:
 custom:
   eventBus:
     name: ${self:service.name}-bus-${self:provider.stage}
-    arn: arn:aws:events:#{AWS::Region}:#{AWS::AccountId}:event-bus/${self:service.name}-bus-${self:provider.stage}
-    source: custom.${self:service.name}
+    arn: arn:aws:events:#{AWS::Region}:#{AWS::AccountId}:event-bus/${self:custom.eventBus.name}
 
 resources:
   Resources:

@@ -10,13 +10,13 @@ const model = {
 
 module.exports.handler = async (event, context) => {
   try {
-    let requestData = JSON.parse(event.body)
-    let params = {
+    const requestData = JSON.parse(event.body)
+    const params = {
       Entries: [
         {
           Detail: JSON.stringify(requestData),
-          DetailType: requestData.type, // "translate" or "sentiment"
-          Source: process.env.EVENT_BUS_SOURCE,
+          DetailType: requestData.type, // Supported: "translate" or "sentiment"
+          Source: 'demo.eventbridge.text-endpoint',
           EventBusName: process.env.EVENT_BUS_NAME,
         },
       ],

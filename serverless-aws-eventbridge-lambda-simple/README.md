@@ -2,7 +2,11 @@
 
 Sample project for experimenting with EventBridge.
 
-Based on the [Sessions With SAM (S1E3): Amazon EventBridge](https://github.com/aws-samples/sessions-with-aws-sam#eventbridge) example code base with IaC ported to the Serverless Framework.
+Based on [Sessions With SAM (S1E3): Amazon EventBridge](https://github.com/aws-samples/sessions-with-aws-sam#eventbridge) sample code, with IaC ported to the Serverless Framework.
+
+The `endpoint` Lambda accepts requests with a JSON payload defining the task to be carried out. It'll emit events on a _custom bus_ to which consumers can subscribe via _rules_. The subscribers - or _targets_ as they are named in EventBridge - in this small example are simle Lambda functions that carry out translation or sentiment analysis.
+
+The actual processing is asynchronous and in this small example it's simply just dumped to the logs.
 
 ## Geting started
 

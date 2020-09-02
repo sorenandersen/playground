@@ -5,11 +5,11 @@ const Log = require('@dazn/lambda-powertools-logger')
 module.exports.handler = async (event) => {
   Log.debug('sentiment event', event)
   try {
-    let params = {
+    const params = {
       LanguageCode: event.detail.language,
       Text: event.detail.data,
     }
-    let sentiment = await comprehend.detectSentiment(params).promise()
+    const sentiment = await comprehend.detectSentiment(params).promise()
     Log.debug('Sentiment', { Sentiment: sentiment.Sentiment })
   } catch (error) {
     Log.error('detectSentiment error', { error })
