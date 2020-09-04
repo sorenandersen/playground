@@ -1,0 +1,66 @@
+service: demo-lambda-destinations
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  memorySize: 128
+  stage: ${opt:stage, "dev"}
+  httpApi:
+    payload: '2.0'
+  environment:
+    LOG_LEVEL: DEBUG
+
+functions:
+  ingest:
+    handler: functions/ingest.handler
+    events:
+      - httpApi:
+          path: /
+          method: post
+    environment:
+      EVENT_BUS_NAME: !Ref CustomBus
+    iamRoleStatements:
+      - Effect: Allow
+        Action: events:PutEvents
+        Resource: ${self:custom.eventBus.arn}
+  processor:
+    handler: functions/processor.handler
+    events:
+      - eventBridge:
+          eventBus: ${self:custom.eventBus.arn}
+          pattern:
+            source:
+              - demo.calculator
+            detail-type:
+              - multiplication
+              - division
+    destinations:
+      onFailure: ${self:custom.failureQueue.arn}
+
+custom:
+  eventBus:
+    name: ${self:service.name}-bus-${self:provider.stage}
+    arn: arn:aws:events:#{AWS::Region}:#{AWS::AccountId}:event-bus/${self:custom.eventBus.name}
+  failureQueue:
+    name: ${self:service.name}-failure-queue-${self:provider.stage}
+    arn: arn:aws:sqs:#{AWS::Region}:#{AWS::AccountId}:${self:custom.failureQueue.name}
+
+resources:
+  Resources:
+    CustomBus:
+      Type: AWS::Events::EventBus
+      Properties:
+        Name: ${self:custom.eventBus.name}
+    FailureQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: ${self:custom.failureQueue.name}
+
+  Outputs:
+    CustomBusName:
+      Value: !Ref CustomBus
+      Description: 'Resource: Event Bus'
+
+plugins:
+  - serverless-iam-roles-per-function
+  - serverless-pseudo-parameters

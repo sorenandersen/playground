@@ -1,0 +1,21 @@
+{
+  "name": "demo-serverless-aws-lambda-destination",
+  "version": "0.0.1",
+  "description": "Sample project for experimenting with Lambda destinations.",
+  "main": "",
+  "scripts": {
+    "sls": "serverless"
+  },
+  "keywords": [],
+  "author": "",
+  "devDependencies": {
+    "aws-sdk": "^2.746.0",
+    "prettier": "^2.1.1",
+    "serverless": "^1.81.1",
+    "serverless-iam-roles-per-function": "^2.0.2",
+    "serverless-pseudo-parameters": "^2.5.0"
+  },
+  "dependencies": {
+    "@dazn/lambda-powertools-logger": "^1.24.1"
+  }
+}
