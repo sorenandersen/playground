@@ -35,6 +35,7 @@ functions:
               - multiplication
               - division
     destinations:
+      onSuccess: ${self:custom.eventBus.arn}
       onFailure: ${self:custom.failureQueue.arn}
 
 custom:
