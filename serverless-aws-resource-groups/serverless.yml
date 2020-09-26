@@ -1,0 +1,70 @@
+service:
+  name: demo-resource-group
+
+plugins:
+  - serverless-iam-roles-per-function
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  memorySize: 128
+  stage: ${opt:stage, 'dev'}
+  httpApi:
+    payload: "2.0"
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+    LOG_LEVEL: ${self:custom.logLevel.${self:provider.stage}, self:custom.logLevel.default}
+
+custom:
+  logLevel:
+    prod: WARN
+    default: DEBUG
+
+functions:
+  get:
+    handler: src/functions/get.handler
+    events:
+      - httpApi:
+          path: /beer/{name}
+          method: GET
+    environment:
+      TABLE_NAME: !Ref BeerTable
+    iamRoleStatements:
+      - Effect: Allow
+        Action: dynamodb:GetItem
+        Resource: !GetAtt BeerTable.Arn
+  put:
+    handler: src/functions/put.handler
+    events:
+      - httpApi:
+          path: /beer
+          method: PUT
+    environment:
+      TABLE_NAME: !Ref BeerTable
+    iamRoleStatements:
+      - Effect: Allow
+        Action: dynamodb:PutItem
+        Resource: !GetAtt BeerTable.Arn
+
+resources:
+  Resources:
+    ResourceGroup:
+      Type: AWS::ResourceGroups::Group
+      Properties:
+        Name: ${self:service.name}-${self:provider.stage}
+
+    BeerTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: BeerName
+            AttributeType: S
+        KeySchema:
+          - AttributeName: BeerName
+            KeyType: HASH
+
+  Outputs:
+    BeerTableName:
+      Value: !Ref BeerTable
+      Description: "DynamoDB table name"

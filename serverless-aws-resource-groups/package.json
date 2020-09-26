@@ -1,0 +1,20 @@
+{
+  "name": "demo-resource-group",
+  "version": "0.1.0",
+  "description": "Monitor serverless applications with AWS Resource Groups",
+  "license": "MIT",
+  "scripts": {
+    "sls": "serverless"
+  },
+  "keywords": [],
+  "author": "",
+  "devDependencies": {
+    "aws-sdk": "^2.761.0",
+    "prettier": "^2.1.2",
+    "serverless": "^2.3.0",
+    "serverless-iam-roles-per-function": "^2.0.2"
+  },
+  "dependencies": {
+    "@dazn/lambda-powertools-logger": "^1.24.1"
+  }
+}
