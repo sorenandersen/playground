@@ -1,0 +1,31 @@
+service: demo-apigw-lambda-schema-validation
+
+provider:
+  name: aws
+  region: eu-west-1
+  runtime: nodejs12.x
+  stage: ${opt:stage, "dev"}
+  logRetentionInDays: 3
+  memorySize: 128
+  timeout: 6
+  logs:
+    httpApi: true
+  environment:
+    LOG_LEVEL: DEBUG
+
+functions:
+  createSeating1:
+    handler: functions/create-seating.handler
+    events:
+      - http:
+          path: /seatings1
+          method: post
+          request:
+            schema:
+              application/json: ${file(functions/create-seating.schema.json)}
+  createSeating2:
+    handler: functions/create-seating-validated.handler
+    events:
+      - httpApi:
+          path: /seatings2
+          method: post

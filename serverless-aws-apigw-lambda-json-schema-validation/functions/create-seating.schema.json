@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Root schema",
+  "type": "object",
+  "properties": {
+    "seatingTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Time of seating"
+    },
+    "numSeats": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Number of seats"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Notes concerning the seating"
+    }
+  },
+  "required": ["seatingTime", "numSeats"]
+}

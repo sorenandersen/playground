@@ -1,0 +1,20 @@
+{
+  "name": "demo-serverless-aws-apigw-request-validation-json-schema",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Sample project for experimenting with JSON Schema validation of incoming request body payloads.",
+  "scripts": {
+    "sls": "serverless"
+  },
+  "keywords": [],
+  "author": "Søren Andersen",
+  "devDependencies": {
+    "aws-sdk": "^2.828.0",
+    "prettier": "^2.2.1",
+    "serverless": "^2.19.0"
+  },
+  "dependencies": {
+    "@dazn/lambda-powertools-logger": "^1.28.1",
+    "ajv": "^6.12.6"
+  }
+}
