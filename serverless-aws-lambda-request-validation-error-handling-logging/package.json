@@ -1,0 +1,23 @@
+{
+  "name": "demo-serverless-aws-lambda-error-handling",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Sample project showing Lambda error handling and -logging with Middy and DAZN Lambda Powertools logger.",
+  "scripts": {
+    "sls": "serverless"
+  },
+  "keywords": [],
+  "author": "Søren Andersen",
+  "devDependencies": {
+    "aws-sdk": "^2.829.0",
+    "prettier": "^2.2.1",
+    "serverless": "^2.19.0"
+  },
+  "dependencies": {
+    "@dazn/lambda-powertools-logger": "^1.28.1",
+    "@middy/core": "^1.5.2",
+    "@middy/http-json-body-parser": "^1.5.2",
+    "ajv": "^6.12.6",
+    "http-errors": "^1.8.0"
+  }
+}

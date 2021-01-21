@@ -1,0 +1,26 @@
+{
+  "id": "https://example.com/calc.schema.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Operation",
+  "type": "object",
+  "properties": {
+    "operation": {
+      "type": "string",
+      "description": "The arithmetic operation to apply to passed-in operands",
+      "enum": ["multiplication", "division", "force-error"]
+    },
+    "operands": {
+      "type": "object",
+      "properties": {
+        "a": {
+          "type": "integer"
+        },
+        "b": {
+          "type": "integer"
+        }
+      },
+      "required": ["a", "b"]
+    }
+  },
+  "required": ["operation", "operands"]
+}
