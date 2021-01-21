@@ -1,5 +1,5 @@
 const Ajv = require('ajv');
-const ajv = new Ajv({ schemaId: 'id', allErrors: true });
+const ajv = new Ajv({ schemaId: 'auto', allErrors: true });
 ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'));
 
 const validate = (schema, data) => {

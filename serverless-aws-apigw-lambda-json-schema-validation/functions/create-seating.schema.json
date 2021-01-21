@@ -1,6 +1,7 @@
 {
+  "id": "https://example.com/create-seating.schema.json",
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Root schema",
+  "title": "Seating",
   "type": "object",
   "properties": {
     "seatingTime": {
