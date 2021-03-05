@@ -20,15 +20,15 @@
 
     <v-footer app>
       <!-- -->
-      DEMO
+      DEMO! Collaborative editing powered by Yjs and the Quill editor. Props to
+      <a href="https://github.com/dmonad" target="_blank">@dmonad</a> for Yjs,
+      bindings and sample code.
     </v-footer>
   </v-app>
 </template>
 
 <script>
 export default {
-  name: "App",
-  components: {},
-  data: () => ({})
+  name: "App"
 };
 </script>
