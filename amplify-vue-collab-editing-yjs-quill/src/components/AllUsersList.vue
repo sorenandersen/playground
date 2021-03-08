@@ -1,18 +1,26 @@
 <template>
-  <div v-if="users.length">
-    <ul>
-      <li v-for="user in users" :key="user.id">
-        {{ user.name }}
-        <span v-if="renderLinks">
-          <router-link
-            :to="{ name: 'DocumentList', params: { userId: user.id } }"
-          >
-            [Login]
-          </router-link>
-        </span>
-      </li>
-    </ul>
-  </div>
+  <v-card max-width="300">
+    <v-simple-table>
+      <template v-slot:default>
+        <thead>
+          <tr>
+            <th>User</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="user in users" :key="user.id">
+            <td :style="{ color: user.cursorColor }">{{ user.name }}</td>
+            <td class="text-right">
+              <v-btn :to="{ name: 'DocumentList', params: { userId: user.id } }"
+                >Simulate login</v-btn
+              >
+            </td>
+          </tr>
+        </tbody>
+      </template>
+    </v-simple-table>
+  </v-card>
 </template>
 
 <script>

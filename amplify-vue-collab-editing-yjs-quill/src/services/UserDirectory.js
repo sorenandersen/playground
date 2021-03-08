@@ -21,9 +21,9 @@ export default {
       cursorColor: "green"
     },
     {
-      id: "eve",
-      name: "Eve",
-      cursorColor: "black"
+      id: "charles",
+      name: "Charles",
+      cursorColor: "cyan"
     }
   ]
 };

@@ -1,31 +1,39 @@
 <template>
   <v-container>
-    <h1>DocumentEdit</h1>
+    <h1>Edit document</h1>
 
-    <div v-if="user">
+    <v-container v-if="user">
+      <p :style="{ color: user.cursorColor }">Hi {{ user.name }}.</p>
+
       <p>
-        User "{{ user.name }}" ({{ user.cursorColor }} cursor) is now editing
-        doc "{{ this.docId }}"
+        When editing this document you'll appear in other users editor with a
+        <span :class="[user.cursorColor]">{{ user.cursorColor }} cursor</span>.
+      </p>
+
+      <p>
+        You're now editing docId: <strong>{{ this.docId }}</strong>
+      </p>
+      <p>
+        Try to open another browser (or this one in incognito mode) and edit the
+        same document while simulating another user. Simultaneous users should
+        appear each with their colored cursor.
       </p>
       <div>
         <QuillCollabEditor :docId="this.docId" :user="user" />
       </div>
-    </div>
-    <div v-else>
-      Invalid userId in path. For this demo the following users exist:
-      <AllUsersList :renderLinks="false" />
-    </div>
+    </v-container>
+    <v-container v-else>
+      Invalid userId in path.
+    </v-container>
   </v-container>
 </template>
 
 <script>
 import UserDirectory from "../services/UserDirectory";
-import AllUsersList from "../components/AllUsersList";
 import QuillCollabEditor from "../components/QuillCollabEditor";
 export default {
   props: ["userId", "docId"],
   components: {
-    AllUsersList,
     QuillCollabEditor
   },
   data() {

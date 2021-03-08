@@ -1,3 +1,9 @@
+<template>
+  <v-container>
+    <div ref="editor"></div>
+  </v-container>
+</template>
+
 <script>
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
@@ -23,12 +29,13 @@ export default {
   },
   data() {
     return {
-      editor: null
+      editor: null,
+      provider: null
     };
   },
   mounted() {
     const ydoc = new Y.Doc();
-    const provider = new WebsocketProvider(
+    this.provider = new WebsocketProvider(
       //"ws://localhost:8099",
       "wss://demos.yjs.dev",
       this.docId,
@@ -52,16 +59,19 @@ export default {
       theme: "snow" // or 'bubble'
     });
 
-    new QuillBinding(ytext, this.editor, provider.awareness);
+    new QuillBinding(ytext, this.editor, this.provider.awareness);
 
     // Define user name and color
     // Check the quill-cursors package on how to change the way cursors are rendered
-    provider.awareness.setLocalStateField("user", {
+    this.provider.awareness.setLocalStateField("user", {
       name: this.user.name,
       color: this.user.cursorColor
     });
 
     this.editor.on("text-change", () => this.update());
+  },
+  beforeDestroy() {
+    this.provider.disconnect();
   },
   methods: {
     update() {
@@ -70,7 +80,3 @@ export default {
   }
 };
 </script>
-
-<template>
-  <div ref="editor"></div>
-</template>
