@@ -4,30 +4,23 @@ const middy = require('@middy/core');
 const jsonBodyParser = require('@middy/http-json-body-parser');
 const httpErrorHandler = require('../lib/middy-http-error-handler');
 const { validate } = require('../lib/schema-validator');
-const schema = require('./calc.schema.json');
+const inputSchema = require('./calc.schema.json');
 
 module.exports.handler = middy(async (event) => {
   log.debug('"calc" invoked', { body: event.body });
 
-  // Validate
-  const validateResult = validate(schema, event.body);
-  if (!validateResult.valid)
-    throw new createError.BadRequest(validateResult.errorsText);
-
+  validate(inputSchema, event.body);
   const { operation } = event.body;
   const { a, b } = event.body.operands;
-  let result;
 
   switch (operation) {
     case 'multiplication':
-      result = a * b;
-      break;
+      return { result: a * b }
     case 'division':
       if (b === 0) {
         throw new createError.BadRequest('Attempted division by zero');
       }
-      result = a / b;
-      break;
+      return { result: a / b }
     case 'force-error':
       thisShouldError();
       break;
@@ -36,8 +29,6 @@ module.exports.handler = middy(async (event) => {
         `Operation '${operation}' not supported.`,
       );
   }
-
-  return { result };
 })
   .use(jsonBodyParser())
   .use(httpErrorHandler());

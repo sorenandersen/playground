@@ -1,3 +1,4 @@
+const createError = require('http-errors');
 const Ajv = require('ajv');
 const ajv = new Ajv({ schemaId: 'auto', allErrors: true });
 ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'));
@@ -9,10 +10,9 @@ const validate = (schema, data) => {
       ? ajv.errorsText()
       : undefined;
 
-  return {
-    valid,
-    errorsText,
-  };
+  if (!valid) {
+    throw new createError.BadRequest(errorsText);
+  }
 };
 
 module.exports = {

@@ -44,22 +44,22 @@ npm run sls -- deploy
 
 # --- Successful requests ---
 # Multiplication
-curl -d '{"operation": "multiplication", "operands": {"a": 2, "b": 2}}' -H "Content-Type: application/json" -X POST https://6zvonqmvxd.execute-api.eu-west-1.amazonaws.com/calc -i
+curl -X POST -d '{"operation": "multiplication", "operands": {"a": 2, "b": 2}}' -H "Content-Type: application/json" https://6zvonqmvxd.execute-api.eu-west-1.amazonaws.com/calc -i
 
 # Division
-curl -d '{"operation": "division", "operands": {"a": 2, "b": 2}}' -H "Content-Type: application/json" -X POST https://6zvonqmvxd.execute-api.eu-west-1.amazonaws.com/calc -i
+curl -X POST -d '{"operation": "division", "operands": {"a": 2, "b": 2}}' -H "Content-Type: application/json" https://6zvonqmvxd.execute-api.eu-west-1.amazonaws.com/calc -i
 
 # --- Invalid requests ---
-curl -d '{"operation": "multiplication"}' -H "Content-Type: application/json" -X POST https://6zvonqmvxd.execute-api.eu-west-1.amazonaws.com/calc -i
+curl -X POST -d '{"operation": "multiplication"}' -H "Content-Type: application/json" https://6zvonqmvxd.execute-api.eu-west-1.amazonaws.com/calc -i
 
-curl -d 'clearly invalid' -H "Content-Type: application/json" -X POST https://6zvonqmvxd.execute-api.eu-west-1.amazonaws.com/calc -i
+curl -X POST -d 'clearly invalid' -H "Content-Type: application/json" https://6zvonqmvxd.execute-api.eu-west-1.amazonaws.com/calc -i
 
 # --- Erroneous requests ---
 # Division by zero
-curl -d '{"operation": "division", "operands": {"a": 2, "b": 0}}' -H "Content-Type: application/json" -X POST https://6zvonqmvxd.execute-api.eu-west-1.amazonaws.com/calc -i
+curl -X POST -d '{"operation": "division", "operands": {"a": 2, "b": 0}}' -H "Content-Type: application/json" https://6zvonqmvxd.execute-api.eu-west-1.amazonaws.com/calc -i
 
 # Deliberately forcing a runtime ReferenceError
-curl -d '{"operation": "force-error", "operands": {"a": 42, "b": 42}}' -H "Content-Type: application/json" -X POST https://6zvonqmvxd.execute-api.eu-west-1.amazonaws.com/calc -i
+curl -X POST -d '{"operation": "force-error", "operands": {"a": 42, "b": 42}}' -H "Content-Type: application/json" https://6zvonqmvxd.execute-api.eu-west-1.amazonaws.com/calc -i
 
 # Inspect invocations in CloudWatch Logs
 npm run sls -- logs -f calc

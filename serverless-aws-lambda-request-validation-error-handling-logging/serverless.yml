@@ -3,7 +3,7 @@ service: demo-lambda-error-handling-logging
 provider:
   name: aws
   region: eu-west-1
-  runtime: nodejs12.x
+  runtime: nodejs14.x
   stage: ${opt:stage, "dev"}
   logRetentionInDays: 3
   memorySize: 128
@@ -14,18 +14,6 @@ provider:
     LOG_LEVEL: DEBUG
 
 functions:
-  # standard:
-  #   handler: functions/standard.handler
-  #   events:
-  #     - httpApi:
-  #         path: /standard
-  #         method: post
-  # middy1:
-  #   handler: functions/middy1.handler
-  #   events:
-  #     - httpApi:
-  #         path: /middy1
-  #         method: post
   calc:
     handler: functions/calc.handler
     events:
